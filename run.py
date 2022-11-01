@@ -16,13 +16,15 @@ LIBRARY = SHEET.worksheet('library')
 
 
 def welcome():
-    from header import logo, show_menu
-    logo()
+    from header import show_menu
     show_menu()
 
 print(LIBRARY.acell("A1").value)
+# LIBRARY.update("A2", "Alek Kisielewicz")
+print(LIBRARY.acell("A2").value)
 
-# welcome()
+welcome()
+
 
 
 # TODO
