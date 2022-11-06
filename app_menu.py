@@ -1,4 +1,8 @@
-# print welcome message with logo
+import constants
+from scripts import functions
+from utils.utils import clear_terminal
+
+
 def logo():
     print("""
     ██   ██  ██████  ███    ███ ███████     ██      ██ ██████  ██████   █████  ██████  ██    ██ 
@@ -7,44 +11,43 @@ def logo():
     ██   ██ ██    ██ ██  ██  ██ ██          ██      ██ ██   ██ ██   ██ ██   ██ ██   ██    ██    
     ██   ██  ██████  ██      ██ ███████     ███████ ██ ██████  ██   ██ ██   ██ ██   ██    ██                                                                           
     """)
-    print("Welcome to Home Library app, you can manage all your books here. Please select option 1-5 to continue.")
+    print(f"Welcome to {constants.APP} app, you can manage all your books here. Please select option 1-6 to continue.")
 
 
 def menu():
     print("""
-            1. Add book
-            2. Edit book
-            3. Remove book
-            4. View all books
-            5. Quit
-            """)
-    print("Please select option from 1-5: ")
+    1. Add book
+    2. Edit book
+    3. Remove book
+    4. View all books
+    5. Show #book details
+    6. Quit
+    """)
+    # print("Please select option from 1-5: ")
 
 
 def show_menu():
     while True:
         menu()
-        user_choice = input()
-        try:
-            int(user_choice)
-        except:
-            print("That's not a number. Please select number from 1 to 5.")
-            show_menu()
+        user_choice = input("Please select a number from 1 to 5 to continue: ")
         if user_choice == "1":
-            print("Add book")
-            break
+            clear_terminal()
+            functions.add_book()
         elif user_choice == "2":
-            print("Edit book")
+            clear_terminal()
+            functions.edit_book()
         elif user_choice == "3":
-            print("Remove book")
+            clear_terminal()
+            functions.remove_book()
         elif user_choice == "4":
-            print("View all books")
+            clear_terminal()
+            functions.show_all_books()
         elif user_choice == "5":
-            print("Thank you for using the app, bye!")
+            clear_terminal()
+            functions.show_book_details()
+        elif user_choice == "6":
+            clear_terminal()
+            functions.quit_app()
             break
-        elif int(user_choice) > 5:
-            print("Number out of range. Please select number from 1 to 5.")
-
-
-logo()
-show_menu()
+        else:
+            print("No such option. Please select a number from 1 to 5.")
