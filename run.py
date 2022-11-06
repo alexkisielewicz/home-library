@@ -8,13 +8,12 @@ def main():
     menu.logo()
     menu.show_menu()
 
-
 main()
 
 
 # TODO
 # * Validate User input
 # * Exception handling
-# * Terminal colours
+# * Terminal colours2
 # * Clearing of the screen
 # * write type hinting

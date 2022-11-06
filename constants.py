@@ -12,7 +12,7 @@ ALL_VALUES = LIBRARY.get_all_values()
 ALL_VALUES_NO_HEADER = ALL_VALUES[1:]
 APP = "Home Library"
 
-ADD_BOOK = """Here you can add new book to your library. \n
+ADD_BOOK = """Now you can add a new book to your library. \n
 You will be asked to enter book title, author, category and short description.
 Choose if you have read the book or not. Book ID will be generated automatically. 
 """

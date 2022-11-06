@@ -11,7 +11,7 @@ def logo():
     ██   ██ ██    ██ ██  ██  ██ ██          ██      ██ ██   ██ ██   ██ ██   ██ ██   ██    ██    
     ██   ██  ██████  ██      ██ ███████     ███████ ██ ██████  ██   ██ ██   ██ ██   ██    ██                                                                           
     """)
-    print(f"Welcome to {constants.APP} app, you can manage all your books here. Please select option 1-6 to continue.")
+    print(f"Welcome to {constants.APP} app, you can manage all your books here. Please select option 1-7 to continue.")
 
 
 def menu():
@@ -20,10 +20,10 @@ def menu():
     2. Edit book
     3. Remove book
     4. View all books
-    5. Show #book details
-    6. Quit
+    5. Change sorting method
+    6. Show #book details
+    7. Quit
     """)
-    # print("Please select option from 1-5: ")
 
 
 def show_menu():
@@ -44,8 +44,11 @@ def show_menu():
             functions.show_all_books()
         elif user_choice == "5":
             clear_terminal()
-            functions.show_book_details()
+            functions.change_sorting_method()
         elif user_choice == "6":
+            clear_terminal()
+            functions.show_book_details()
+        elif user_choice == "7":
             clear_terminal()
             functions.quit_app()
             break
