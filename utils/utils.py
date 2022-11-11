@@ -1,12 +1,26 @@
 from api.google_sheets_api import LIBRARY, CONFIG
 import os
 import textwrap
+import app_menu as menu
 import constants
+import random
 from prettytable import PrettyTable
 from scripts import functions
 
 default_method = CONFIG.acell('B1').value  # either "by title" or "by author"
 optional_method = CONFIG.acell('B2').value  # is always opposite value to default_method
+
+
+def database_check():
+    while True:
+        is_empty = len(LIBRARY.row_values(2))  # checks if there is a record below DB headers
+        if is_empty == 0:
+            clear_terminal()
+            print("Database is empty, add at least one book to continue.")
+            menu.show_menu()
+            break
+        else:
+            break
 
 
 def validate_num_range(user_input, first_val, last_val):  # e. g main menu with options 1-7
@@ -201,3 +215,26 @@ def print_all_database():
             [i[:-1]]  # each iteration adds a row to the table, we skip the header
         )
     print(x)
+
+
+def random_not_read():
+    all_books = LIBRARY.get_all_values()[1:]  # without headers
+    not_read = []
+
+    for book in all_books:
+        if "Not read" in book[4]:
+            not_read.append(book)
+
+    if len(not_read) > 0:
+        random_book = random.choice(not_read)
+        suffix = ", The"
+        prefix = "The "
+        title = random_book[1]
+
+        if suffix in title:
+            short = title[:-5]  # a title without last 5 characters
+            new_title = prefix + short
+            title = new_title
+
+        print("Looking for your next read?")
+        print(f"Why don't you grab \"{title}\" by {random_book[2]}. It's still not read.")

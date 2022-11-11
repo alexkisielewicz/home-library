@@ -27,7 +27,7 @@ REMOVE_BOOK = "Here you can remove selected book from the database."
 
 VIEW_ALL_BOOKS = f"This is the list of all your books. Currently it has {len(ALL_VALUES_NO_HEADER)} positions."
 
-SHOW_BOOK_DETAILS = "This is detailed view of the book."
+SHOW_BOOK_DETAILS = "This is detailed view of the book entry."
 
 END_SCREEN = """
 It was developed by Aleksander Kisielewicz 
