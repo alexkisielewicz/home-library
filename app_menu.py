@@ -1,6 +1,10 @@
+"""
+Home screen consists of logo and main menu.
+"""
+
 import constants
-from scripts import functions
-from utils.utils import clear_terminal
+from scripts import functions as fn
+from utils.utils import clear_terminal, validate_num_range
 
 
 def logo():
@@ -28,29 +32,29 @@ def menu():
 
 def show_menu():
     while True:
-        menu()
-        user_choice = input("Please select a number from 1 to 5 to continue: ")
+        menu()  # prints menu
+        user_choice = input("Please select a number from 1 to 7 to continue: ")
+        clear_terminal()
+        validate_num_range(user_choice, 1, 7)  # validates user input, only values from 1 to 7 are allowed
         if user_choice == "1":
             clear_terminal()
-            functions.add_book()
+            fn.add_book()
         elif user_choice == "2":
             clear_terminal()
-            functions.edit_book()
+            fn.edit_book()
         elif user_choice == "3":
             clear_terminal()
-            functions.remove_book()
+            fn.remove_book()
         elif user_choice == "4":
             clear_terminal()
-            functions.show_all_books()
+            fn.show_all_books()
         elif user_choice == "5":
             clear_terminal()
-            functions.change_sorting_method()
+            fn.change_sorting_method()
         elif user_choice == "6":
             clear_terminal()
-            functions.show_book_details()
+            fn.show_book_details()
         elif user_choice == "7":
             clear_terminal()
-            functions.quit_app()
+            fn.quit_app()
             break
-        else:
-            print("No such option. Please select a number from 1 to 5.")
