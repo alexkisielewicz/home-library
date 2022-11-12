@@ -23,9 +23,9 @@ Choose if you have read the book or not. Book ID is generated automatically.
 
 EDIT_BOOK = "Here you can update all book details."
 
-REMOVE_BOOK = "Here you can remove selected book from the database."
+REMOVE_BOOK = "Here you can remove selected book from the database.\n"
 
-VIEW_ALL_BOOKS = f"This is the list of all your books. Currently it has {len(ALL_VALUES_NO_HEADER)} positions."
+VIEW_ALL_BOOKS = f"This is the list of all your books."
 
 SHOW_BOOK_DETAILS = "This is detailed view of the book entry."
 

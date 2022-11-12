@@ -10,6 +10,9 @@ from scripts import functions
 default_method = CONFIG.acell('B1').value  # either "by title" or "by author"
 optional_method = CONFIG.acell('B2').value  # is always opposite value to default_method
 
+first_book_id = ""
+last_book_id = ""
+
 
 def database_check():
     while True:
@@ -23,27 +26,40 @@ def database_check():
             break
 
 
+def how_many_books():
+    all_books = LIBRARY.col_values(1)[1:]  # list of IDs of all books
+
+    if len(all_books) > 0:
+        global first_book_id
+        global last_book_id
+        first_book_id = all_books[0]
+        last_book_id = all_books[-1]
+    else:
+        print("No records")
+        first_book_id = 0
+        last_book_id = 0
+
+    return first_book_id, last_book_id
+
+
 def validate_num_range(user_input, first_val, last_val):  # e. g main menu with options 1-7
     """
     Checks if user input is withing the range of possible options.
     Any input out of desired range will show user a message containing a range of options.
-    :param user_input: this is user input from input()
+    :param user_input: this is user input
     :param first_val: this is first option from the range of options
     :param last_val:  this is the last option from the range of options
+    :returns True if user's input is valid
+    :returns False if user's input is invalid
     """
-    end = last_val + 1  # plus one because of list's zero notation
+    options = list(range(first_val, last_val + 1))
+    allowed_options = [str(i) for i in options]
 
-    if isinstance(user_input, str):
-        print("Incorrect input, please try again.\n")
+    if user_input in allowed_options:
+        return True
     else:
-        if int(user_input) in list(range(first_val, end)):
-            print("It's good input")
-        else:
-            print(f"Wrong input, please select option from {first_val} to {last_val} to continue...")
-            print(list(range(first_val, end)))
-            print(user_input in list(range(first_val, end)))
-            print(type(user_input))
-            print(type(list(range(first_val, end))))
+        print(f"Wrong input, please select option from {first_val} to {last_val} to continue...\n")
+        return False
 
 
 def validate_input_range(user_input, first_val, end):
@@ -90,12 +106,8 @@ def validate_input(user_input, min_value, max_value):
 def validate_yes_no(user_input):
     valid_options = ["y", "Y", "n", "N"]
     if user_input in valid_options:
-        print("Correct input")
-        clear_terminal()
         return True
     else:
-        clear_terminal()
-        print("Incorrect input, try again...")
         return False
 
 
@@ -132,8 +144,7 @@ def renumber_id_column():
         LIBRARY.update_acell("A" + str(row_val), id_val)  # renumbering ID value to keep order
         id_val += 1
         row_val += 1
-
-    print("Database successfully updated.")
+    print("Updating database...")
 
 
 def check_prefix():
@@ -171,10 +182,8 @@ def sort(sorting_order):
     if sorting_order == default_method:
         print("sorting order is: ", sorting_order, "default_method is: ", default_method, "do nothing")
     elif sorting_order == optional_method:
-        print("Changing sorting to opposite method")  # will be removed
         if default_method == "by author":
-            print("Sorting database by title...")
-            print("Saving 'by title' as default and 'by author' as optional method")  # will be removed
+            print("Sorting database by title. Please wait...")
             CONFIG.update_acell("B1", "by title")  # write method to database
             CONFIG.update_acell("B2", "by author")  # write method to database
             functions.default_sorting_method = "by title"  # changing value so can be updated in functions.py
@@ -184,8 +193,7 @@ def sort(sorting_order):
             sort_books(2, "asc")
             renumber_id_column()
         elif default_method == "by title":
-            print("Sorting database by author...")
-            print("Saving 'by author' as default and 'by title' as optional method")  # will be removed
+            print("Sorting database by author. Please wait...")
             CONFIG.update_acell("B1", "by author")  # writing method to database
             CONFIG.update_acell("B2", "by title")  # writing method to database
             functions.default_sorting_method = "by author"  # changing value so can be updated in functions.py
