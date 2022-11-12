@@ -5,21 +5,22 @@ Home screen consists of logo and main menu.
 import constants
 from scripts import functions as fn
 from utils.utils import clear_terminal, validate_num_range
+from colorama import Fore, Style
 
 
 def logo():
-    print("""
+    print(Fore.BLUE + """
     ██   ██  ██████  ███    ███ ███████     ██      ██ ██████  ██████   █████  ██████  ██    ██ 
     ██   ██ ██    ██ ████  ████ ██          ██      ██ ██   ██ ██   ██ ██   ██ ██   ██  ██  ██  
     ███████ ██    ██ ██ ████ ██ █████       ██      ██ ██████  ██████  ███████ ██████    ████   
     ██   ██ ██    ██ ██  ██  ██ ██          ██      ██ ██   ██ ██   ██ ██   ██ ██   ██    ██    
     ██   ██  ██████  ██      ██ ███████     ███████ ██ ██████  ██   ██ ██   ██ ██   ██    ██                                                                           
-    """)
+    """ + Style.RESET_ALL)
     print(f"Welcome to {constants.APP} app, you can manage all your books here. Please select option 1-7 to continue.")
 
 
 def menu():
-    print("""
+    print(Fore.GREEN + """
     1. Add book
     2. Edit book
     3. Remove book
@@ -27,7 +28,7 @@ def menu():
     5. Change sorting method
     6. Show #book details
     7. Quit
-    """)
+    """ + Style.RESET_ALL)
 
 
 def show_menu():

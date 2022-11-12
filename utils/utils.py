@@ -6,6 +6,7 @@ import constants
 import random
 from prettytable import PrettyTable
 from scripts import functions
+from colorama import Fore
 
 default_method = CONFIG.acell('B1').value  # either "by title" or "by author"
 optional_method = CONFIG.acell('B2').value  # is always opposite value to default_method

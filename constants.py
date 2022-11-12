@@ -2,6 +2,7 @@
 Constants used throughout the app
 """
 from api.google_sheets_api import *
+from colorama import Fore
 
 # app constants
 
