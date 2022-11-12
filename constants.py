@@ -21,7 +21,7 @@ You will be asked to enter book title, author, category and short description.
 Choose if you have read the book or not. Book ID is generated automatically. 
 """
 
-EDIT_BOOK = "Here you can update all book details."
+EDIT_BOOK = "Here you can update all book details.\n"
 
 REMOVE_BOOK = "Here you can remove selected book from the database.\n"
 

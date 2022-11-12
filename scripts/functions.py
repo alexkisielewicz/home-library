@@ -51,8 +51,10 @@ def show_book_details():
             print(constants.LINE)
         else:
             clear_terminal()
-            how_many_books()
-            print(f"No such record! Please select #ID from 1 to {utils.utils.last_book_id}.\n")
+            if how_many_books() is True:
+                print("Not much of a choice, you have only one book, please select it...\n")
+            elif how_many_books() is False:
+                print(f"No such record! Please select #ID from 1 to {utils.utils.last_book_id}.\n")
             show_book_details()
 
         break
@@ -85,6 +87,7 @@ def change_sorting_method():
             show_all_books()
             break
         elif user_choice == "2":
+            clear_terminal()
             show_all_books()
             break
 
@@ -135,11 +138,10 @@ def edit_book():
                 user_choice = input("What do you want to edit? Select 1-6: ")
                 validate_num_range(user_choice, 1, 6)
                 # validate_input_range(user_choice, 1, 6)
-                edit_cell = ""
 
                 if user_choice == "1":
                     edit_cell = check_prefix()
-                    # validate CHECK_PREFIX !
+                    validate_string(edit_cell)
                     book_no_desc[1] = edit_cell.title()
                     LIBRARY.update_cell(db_row, 2, edit_cell.title())
                     print("Updating database...")
@@ -149,6 +151,7 @@ def edit_book():
 
                 elif user_choice == "2":
                     edit_cell = (input("Please enter new author: "))
+                    validate_string(edit_cell)
                     book_no_desc[2] = edit_cell.title()
                     LIBRARY.update_cell(db_row, 3, edit_cell)
                     clear_terminal()
@@ -157,7 +160,7 @@ def edit_book():
 
                 elif user_choice == "3":
                     edit_cell = (input("Please enter new category: "))
-                    # VALIDATE HERE
+                    validate_string(edit_cell)
                     book_no_desc[3] = edit_cell.capitalize()
                     LIBRARY.update_cell(db_row, 4, edit_cell)
                     clear_terminal()
@@ -166,9 +169,9 @@ def edit_book():
 
                 elif user_choice == "4":
                     while True:
-                        updated_desc = (input('Please select "1" if book is READ and "2" if NOT READ: '))
-                        if validate_num_range(updated_desc, 1, 2):
-                            if updated_desc == "1":
+                        edit_cell = (input('Please select "1" if book is READ and "2" if NOT READ: '))
+                        if validate_num_range(edit_cell, 1, 2):
+                            if edit_cell == "1":
                                 edit_cell = "Read"
                                 book_no_desc[4] = edit_cell
                                 LIBRARY.update_cell(db_row, 5, edit_cell)
@@ -176,7 +179,7 @@ def edit_book():
                                 print(f'Book status updated successfully to "{edit_cell.lower()}".\n')
                                 print("Keep editing this book or return to main menu.")
                                 break
-                            elif updated_desc == "2":
+                            elif edit_cell == "2":
                                 edit_cell = "Not read"
                                 book_no_desc[4] = edit_cell
                                 LIBRARY.update_cell(db_row, 5, edit_cell)
@@ -190,7 +193,7 @@ def edit_book():
 
                 elif user_choice == "5":
                     edit_cell = (input("Please enter new description: ")).capitalize()
-                    validate_string(user_choice)
+                    validate_string(edit_cell)
                     LIBRARY.update_cell(db_row, 6, edit_cell)
                     book_description = edit_cell
                     clear_terminal()
@@ -203,8 +206,11 @@ def edit_book():
 
         else:
             clear_terminal()
-            how_many_books()
-            print(f"No such record! Please select #ID from 1 to {utils.utils.last_book_id}.\n")
+            if how_many_books() is True:
+                print("Not much of a choice, you have only one book, please select it...\n")
+            elif how_many_books() is False:
+                print(f"No such record! Please select #ID from 1 to {utils.utils.last_book_id}.\n")
+
             edit_book()
 
         break
@@ -223,25 +229,28 @@ def add_book():
     book_to_be_added = []
 
     title = check_prefix()  # checks if book title starts with "The" and returns "Title, The"
-
+    validate_string(title)
     author = input("Please enter the author: ").title()
     validate_string(author)
     category = input("Please enter book category: ").capitalize()
     validate_string(category)
-    status = input('Please select "1" if book is READ and "2" if NOT READ: ')
-    validate_num_range(status, 1, 2)  # only input 1 or 2 is allowed
-    read_status = ""
 
-    if status == "1":
-        read_status = "Read"
-    elif status == "2":
-        read_status = "Not read"
+    while True:
+        status = input('Please select "1" if book is READ and "2" if NOT READ: ')
+        if validate_num_range(status, 1, 2):
+            if status == "1":
+                read_status = "Read"
+                break
+            elif status == "2":
+                read_status = "Not read"
+                break
+
+        else:
+            print(f"Wrong input, please try again...\n")
 
     description = input("Please enter book description: ").capitalize()
     validate_string(description)
-    print(book_to_be_added)
     book_to_be_added.extend([title, author, category, read_status, description])
-    print(book_to_be_added)
     clear_terminal()
     print(constants.LINE)
     first_empty_row = len(LIBRARY.get_all_values())  # look up database for first empty row
@@ -276,8 +285,9 @@ def add_book():
                 print("Aborting...")
                 break
         else:
-            print("Incorrect input, aborting...")
-            menu.show_menu()
+            clear_terminal()
+            print("Wrong input, please select \"Y\" or \"N\"...")
+            # menu.show_menu()
 
 
 def remove_book():
@@ -329,11 +339,12 @@ def remove_book():
                     clear_terminal()
                     print("Wrong input, please select \"Y\" or \"N\"...")
 
-
         else:
             clear_terminal()
-            how_many_books()
-            print(f"No such record! Please select #ID from 1 to {utils.utils.last_book_id}.\n")
+            if how_many_books() is True:
+                print("Not much of a choice, you have only one book, please select it...\n")
+            elif how_many_books() is False:
+                print(f"No such record! Please select #ID from 1 to {utils.utils.last_book_id}.\n")
             remove_book()
 
 

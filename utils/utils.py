@@ -28,16 +28,15 @@ def database_check():
 
 def how_many_books():
     all_books = LIBRARY.col_values(1)[1:]  # list of IDs of all books
+    global first_book_id
+    global last_book_id
 
-    if len(all_books) > 0:
-        global first_book_id
-        global last_book_id
+    if len(all_books) == 1:
+        return True
+    elif len(all_books) > 1:
         first_book_id = all_books[0]
         last_book_id = all_books[-1]
-    else:
-        print("No records")
-        first_book_id = 0
-        last_book_id = 0
+        return False
 
     return first_book_id, last_book_id
 
@@ -58,6 +57,7 @@ def validate_num_range(user_input, first_val, last_val):  # e. g main menu with 
     if user_input in allowed_options:
         return True
     else:
+        clear_terminal()
         print(f"Wrong input, please select option from {first_val} to {last_val} to continue...\n")
         return False
 
@@ -84,8 +84,10 @@ def validate_input_range(user_input, first_val, end):
 def validate_string(user_input):
     if user_input.isalnum():
         print("OK, it's a string")
+        return True
     else:
         print("Not alpha-numerical")
+        return False
 
 
 def validate_input(user_input, min_value, max_value):
